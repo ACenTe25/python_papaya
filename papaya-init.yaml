@@ -1,0 +1,61 @@
+#cloud-config
+
+# Agrega usuarios al sistema
+users:
+  - name: papajohn
+    gecos: Papa John
+    passwd: $6$rounds=500000$E.ugh3BJXHkX9LmB$XUFPYv93OqZiBG9xBBYdNa557WsnV9zdQosk.HIcT5d6/mxcLFqQNkkECHcpmVGAJgx9gH1mwQkxhTrDoiIoc0
+    lock_passwd: false
+    sudo: ["ALL=(ALL) ALL"]
+    shell: /bin/bash
+
+# Actualiza la base de datos de paquetes tras el arranque
+package_update: true
+
+# Actualiza los paquetes tras el arranque
+package_upgrade: true
+
+# Instala paquetes adicionales
+packages:
+  - git
+  - make
+  - build-essential
+  - libssl-dev
+  - libffi-dev
+  - python3
+  - python3-venv
+  - ubuntu-restricted-extras
+  - ubuntu-desktop-minimal
+  - xrdp
+
+# Instala snaps
+snap:
+  commands:
+    00: snap install code --classic
+
+# Crea el servicio de code serve-web
+write_files:
+  - path: /etc/systemd/system/codeserveweb.service
+    owner: root:root
+    permissions: 0755
+    content: |
+        [Unit]
+        Description=VS Code Web Server
+        After=network.target
+        StartLimitIntervalSec=0
+
+        [Service]
+        Type=simple
+        Restart=always
+        RestartSec=1
+        User=papajohn
+        ExecStart=/bin/bash -c '/snap/bin/code serve-web --without-connection-token --host $(hostname -I)'
+
+        [Install]
+        WantedBy=multi-user.target
+        
+# Ejecuta ordenes
+runcmd:
+  - echo "Created $(date)\nVersion 0.0.1" > /etc/birth-cert
+  - systemctl daemon-reload
+  - systemctl enable --now codeserveweb.service
