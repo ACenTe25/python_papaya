@@ -15,10 +15,16 @@ para que tengamos un entorno adecuado:
 
 3. Descarga el archivo [`papaya-init.yaml`](papaya-init.yaml) de este repositorio.
 
-4. Crea una VM usando Multipass con la configuración adecuada: `multipass launch -c 4 -m 3G -d 20G -n pythonic-papaya --cloud-init papaya-init.yaml noble`.
+4. Crea una VM usando Multipass con la configuración adecuada: 
+```bash
+multipass launch -c 4 -m 3G -d 20G -n pythonic-papaya --cloud-init papaya-init.yaml noble
+```
 
-5. Transfiere tu llave pública a la VM: `multipass transfer id_rsa.pub pythonic-papaya:/home/papajohn/llave_host` y luego entra a la VM, y copia el contenido de la 
-llave a una línea nueva en el archivo `/home/papajohn/.ssh/authorized_keys`.
+5. Transfiere tu llave pública a la VM: 
+```bash
+multipass transfer id_rsa.pub pythonic-papaya:/home/ubuntu/llave_host
+``` 
+Luego entra a la VM, y copia el contenido de la llave a una línea nueva en el archivo `/home/papajohn/.ssh/authorized_keys`.
 
 6. Instala un cliente RDP en tu máquina host: [Remmina](https://remmina.org/) para Linux, [Microsoft Remote Desktop](https://apps.microsoft.com/detail/9wzdncrfj3ps?hl=en-US&gl=US) 
 para Windows o macOS, o [Jump Desktop](https://apps.apple.com/ua/app/jump-desktop-rdp-vnc-fluid/id524141863?l=ru&mt=12) para macOS. Esto se va a utilizar cuando vayamos a 
