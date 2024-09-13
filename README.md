@@ -5,7 +5,7 @@ el club de aprendizaje de Python.
 
 ## 0. ÍNDICE
 
-1. [Entorno de desarrollo](##1.entorno-de-desarrollo)
+1. [Entorno de desarrollo](#1-entorno-de-desarrollo)
 
 ## 1. ENTORNO DE DESARROLLO
 
