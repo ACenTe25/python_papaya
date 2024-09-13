@@ -30,10 +30,17 @@ cloud-init status --wait
 ```
 Y ese comando va a esperar a que termine de aplicar todas las configuraciones de `cloud-init`.
 
-5. Transfiere tu llave pública a la VM para tener acceso a la VM por SSH sin lanzar una shell de Multipass: 
+5. Transfiere tu llave pública a la VM para tener acceso a la VM por SSH sin lanzar una shell de Multipass:
 ```bash
-multipass transfer id_rsa.pub pythonic-papaya:/home/ubuntu/llave_host
-``` 
+multipass transfer <RUTA DE TU LLAVE PÚBLICA> pythonic-papaya:/home/ubuntu/llave_host
+```
+
+Usualmente tus llaves SSH se guardan en `~/.ssh` y usualmente tu llave pública se llama `id_rsa.pub` (usualmente termina en `.pub`). Si usaste valores por defecto para generar tu llave, la orden es:
+
+```bash
+multipass transfer ~/.ssh/id_rsa.pub pythonic-papaya:/home/ubuntu/llave_host
+```
+
 Luego entra a la VM, y copia el contenido de la llave a una línea nueva en el archivo de authorized keys de `papajohn`:
 ```bash
 sudo sh -c 'echo $(cat /home/ubuntu/llave_pub_host) >> /home/papajohn/.ssh/authorized_keys'
