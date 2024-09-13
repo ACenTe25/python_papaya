@@ -42,7 +42,7 @@ cat <RUTA DE TU LLAVE PÚBLICA> | multipass transfer - pythonic-papaya:/home/ubu
 Usualmente tus llaves SSH se guardan en `~/.ssh` y usualmente tu llave pública se llama `id_rsa.pub` (usualmente termina en `.pub`). Si usaste valores por defecto para generar tu llave, la orden es:
 
 ```bash
-cat ~/.ssh/id_rsa.pub | multipass transfer - pythonic-papaya:/home/ubuntu/llave_host
+cat ~/.ssh/id_rsa.pub | multipass transfer - pythonic-papaya:/home/ubuntu/llave_pub_host
 ```
 
 Luego entra a la VM, y copia el contenido de la llave a una línea nueva en el archivo de authorized keys de `papajohn`:
