@@ -36,19 +36,21 @@ Y ese comando va a esperar a que termine de aplicar todas las configuraciones de
 
 5. Transfiere tu llave pública a la VM para tener acceso a la VM por SSH sin lanzar una shell de Multipass:
 ```bash
-multipass transfer <RUTA DE TU LLAVE PÚBLICA> pythonic-papaya:/home/ubuntu/llave_host
+cat <RUTA DE TU LLAVE PÚBLICA> | multipass transfer - pythonic-papaya:/home/ubuntu/llave_host
 ```
 
 Usualmente tus llaves SSH se guardan en `~/.ssh` y usualmente tu llave pública se llama `id_rsa.pub` (usualmente termina en `.pub`). Si usaste valores por defecto para generar tu llave, la orden es:
 
 ```bash
-multipass transfer ~/.ssh/id_rsa.pub pythonic-papaya:/home/ubuntu/llave_host
+cat ~/.ssh/id_rsa.pub | multipass transfer - pythonic-papaya:/home/ubuntu/llave_host
 ```
 
 Luego entra a la VM, y copia el contenido de la llave a una línea nueva en el archivo de authorized keys de `papajohn`:
 ```bash
 sudo sh -c 'echo $(cat /home/ubuntu/llave_pub_host) >> /home/papajohn/.ssh/authorized_keys'
 ```
+
+El `cat ... | multipass transfer - ...` es necesario porque si instalaste Multipass como un snap, no va a tener acceso a directorios ocultos como `~/.ssh`. Si eso no es un problema, de todos modos esta orden funciona bien.
 
 6. Instala un cliente RDP en tu máquina host: [Remmina](https://remmina.org/) para Linux, o [Jump Desktop](https://apps.apple.com/ua/app/jump-desktop-rdp-vnc-fluid/id524141863?l=ru&mt=12) para macOS. Esto se va a utilizar cuando vayamos a probar/usar aplicaciones con GUI.
 
