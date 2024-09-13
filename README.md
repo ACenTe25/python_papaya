@@ -8,8 +8,8 @@ el club de aprendizaje de Python.
 Vamos a desarrollar en Ubuntu 24.04 LTS, usando Python 3.12. Para que todos 
 tengamos acceso a un entorno similar, vamos a usar una máquina virtual de Multipass. 
 
-> Nota: VirtualBox no le da al host acceso de red al guest (ni viceversa) excepto al usar modo bridge. Multipass configura una interfaz de red por default para establecer su comunicación con el host, pero eso solo funciona en la shell de Multipass. Los nombres asignados a las interfaces de red del guest no son determinísticos, y desde el guest no tenemos acceso a información del host. Todo esto nos permite concluir que no es sencillo ni automático configurar el server de VS Code del guest para que el host tenga acceso cuando el backend es VirtualBox. 
-> Además, Multipass no soporta VirtualBox para hosts Linux, y los hosts Windows cuyos dueños requieren Hyper-V para VMware, no deberían interferir con la configuración de Hyper-V para poder usar Multipass.
+> Nota: VirtualBox no le da al host acceso de red al guest (ni viceversa) excepto al usar modo bridge. Multipass configura una interfaz de red por default para establecer su comunicación con el host, pero eso solo funciona en la shell de Multipass. Los nombres asignados a las interfaces de red del guest no son determinísticos, y desde el guest no tenemos acceso a información del host. Todo esto nos permite concluir que no es sencillo ni automático configurar el server de VS Code del guest para que el host tenga acceso cuando el backend es VirtualBox.  
+> Además, Multipass no soporta VirtualBox para hosts Linux, y los hosts Windows cuyos dueños requieren Hyper-V para VMware, no deberían interferir con la configuración de Hyper-V para poder usar Multipass.  
 > Para simplificar nuestro setup vamos a usar un backend QEMU para Multipass, por lo que el host no puede ser Windows.
 
 Aquí las instrucciones para que tengamos un entorno adecuado:
@@ -48,7 +48,15 @@ sudo sh -c 'echo $(cat /home/ubuntu/llave_pub_host) >> /home/papajohn/.ssh/autho
 
 6. Instala un cliente RDP en tu máquina host: [Remmina](https://remmina.org/) para Linux, o [Jump Desktop](https://apps.apple.com/ua/app/jump-desktop-rdp-vnc-fluid/id524141863?l=ru&mt=12) para macOS. Esto se va a utilizar cuando vayamos a probar/usar aplicaciones con GUI.
 
-7. Desde tu navegador en tu máquina host, entra a `https://<IP DE LA VM>:8000` y empieza a desarrollar.
+7. Desde tu navegador en tu máquina host, entra a `https://<IP DE LA VM>:8000` y empieza a desarrollar. Para consultar la IP de la VM, puedes hacer desde tu host:
+```bash
+multipass list
+``` 
+
+Y se va a desplegar la IP en alguna de las columnas, en la línea correspondiente a `pythonic-papaya`. O desde la VM puedes hacer:
+```bash
+hostname -I
+```
 
 8. Para probar apps con CLI/TUI, conéctate por SSH a la máquina virtual, o usa Multipass para acceder a una shell de manera directa.
 
